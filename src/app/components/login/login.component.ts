@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthenticationStateService } from 'src/app/store/authentication/auth.store';
+import { IAuth } from 'src/app/models/authentication.model';
+import { AuthActions } from 'src/app/store/authentication/actions';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -9,7 +13,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private authStateService: AuthenticationStateService,
+        private router: Router,
+    ) {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
@@ -20,11 +28,13 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(formValue) {
-        const payload = {
+        const payload: IAuth = {
             username: formValue.username,
-            password: formValue.password
+            refreshToken: 'staticRefreshToken',
+            accessToken: 'staticAccessToken'
         };
-        
+        this.authStateService.authActionDispatcher.next({ type: AuthActions.LOGIN, payload });
+        this.router.navigate(['/dashboard']);
     }
 
 }
