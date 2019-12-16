@@ -7,13 +7,13 @@ import { AuthActions } from './actions';
     providedIn: 'root'
 })
 export class AuthenticationStateService{
-    initialState: IAuth;
+    authInitialState: IAuth;
     authStore: BehaviorSubject<IAuth>;
     authActionDispatcher: Subject<IAction>;
 
     constructor() {
         console.log('auth store initialised');
-        this.initialState = this.getInitialState();
+        this.authInitialState = this.getInitialState();
         localStorage.getItem('user')
             ? this.authStore = new BehaviorSubject<IAuth>(JSON.parse(localStorage.getItem('user')))
             : this.authStore = new BehaviorSubject<IAuth>(this.getInitialState());
