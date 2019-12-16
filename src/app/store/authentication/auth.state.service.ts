@@ -40,7 +40,8 @@ export class AuthenticationStateService{
         return {
             username: '',
             refreshToken: '',
-            accessToken: ''
+            accessToken: '',
+            isLoggedIn: false
         }
     }
     

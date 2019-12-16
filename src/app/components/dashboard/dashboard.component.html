@@ -1,3 +1,3 @@
 <div>dashboard works</div>
-<div>{{ username }}</div>
-<div>Login status: {{ loginStatus }}</div>
+<div>Logged in user: {{ username | uppercase }}</div>
+<button (click)="logout()">Logout</button>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthenticationStateService } from 'src/app/store/authentication/auth.store';
+import { AuthenticationStateService } from 'src/app/store/authentication/auth.state.service';
 import { IAuth } from 'src/app/models/authentication.model';
 import { AuthActions } from 'src/app/store/authentication/actions';
 import { Router } from '@angular/router';
@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
         const payload: IAuth = {
             username: formValue.username,
             refreshToken: 'staticRefreshToken',
-            accessToken: 'staticAccessToken'
+            accessToken: 'staticAccessToken',
+            isLoggedIn: true
         };
         this.authStateService.authActionDispatcher.next({ type: AuthActions.LOGIN, payload });
         this.router.navigate(['/dashboard']);
